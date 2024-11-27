@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ginapi-deployment
+  namespace: benchmark
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ginapi
+  template:
+    metadata:
+      labels:
+        app: ginapi
+    spec:
+      containers:
+      - name: ginapi
+          image: <aws-account-id>.dkr.ecr.us-east-1.amazonaws.com/benchmarks/ginapi:<input_tag>
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            memory: 100Mi
+            cpu: 100G
+          requests:
+            memory: 100Mi
+            cpu: 100G
+        ports:
+        - name: http
+          containerPort: 8080
+          protocol: TCP

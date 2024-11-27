@@ -1,0 +1,15 @@
+---
+# tasks file for common
+- name: Update all packages
+  apt:
+    update_cache: yes
+    upgrade: dist
+
+- name: Install basic utilities
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - curl
+    - wget
+    - unzip

@@ -1,0 +1,24 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for go
+# tasks/main.yml
+- name: Download Go binary
+  get_url:
+    url: "https://dl.google.com/go/go1.20.4.linux-amd64.tar.gz"
+    dest: /tmp/go.tar.gz
+
+- name: Extract Go binary
+  unarchive:
+    src: /tmp/go.tar.gz
+    dest: /usr/local
+    remote_src: yes
+
+- name: Set up Go environment variables
+  lineinfile:
+    path: /etc/profile
+    line: "{{ item }}"
+    create: yes
+  with_items:
+    - "export PATH=$PATH:/usr/local/go/bin"
+    - "export GOPATH=/usr/local/go"
+

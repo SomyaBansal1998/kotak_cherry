@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: express-api
+  namespace: benchmarks
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: express-api
+  template:
+    metadata:
+      labels:
+        app: express-api
+    spec:
+      containers:
+      - name: express-api
+        image: <aws-account-id>.dkr.ecr.us-east-1.amazonaws.com/benchmarks/express-api:<Input_tag>
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            memory: 100Mi
+            cpu: 100G
+          requests:
+            memory: 100Mi
+            cpu: 100G
+        ports:
+        - name: http
+          containerPort: 4001
+          protocol: TCP

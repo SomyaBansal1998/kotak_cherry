@@ -1,0 +1,14 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for nodejs
+# tasks/main.yml
+- name: Add Node.js repository
+  shell: |
+    curl -sL https://rpm.nodesource.com/setup_16.x | bash -
+  args:
+    creates: /etc/yum.repos.d/nodesource.repo
+
+- name: Install Node.js
+  yum:
+    name: nodejs
+    state: present
